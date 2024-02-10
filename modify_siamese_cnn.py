@@ -26,7 +26,7 @@ tf.config.run_functions_eagerly(True)
 #So we realized classic Siamese CNN that compares 2 image by sending it through two same branches and then concatenating results and defining whether it is similar or not.
 #
 # dataset = tf.data.TFRecordDataset('classification_the_office_dataset.tfrecord')
-dataset = tf.data.TFRecordDataset('classification_dataset_v1_inside_modified_siamese_cnn.tfrecord')
+dataset = tf.data.TFRecordDataset('classification_dataset_modified_siamese_cnn_256pix.tfrecord')
 def parse_record(record):
     images = []
     labels = []
@@ -51,7 +51,6 @@ def parse_record(record):
 
 
 images, labels = parse_record(dataset)
-
 
 def get_datasets_for_loop(images,labels,test_size,get_another_sample=False):
 
@@ -224,11 +223,11 @@ test_dataset=tf.data.Dataset.from_tensor_slices((tf.convert_to_tensor(x_test_pai
 #model architure
 
 
-siamese_cnn=load_model('4iter_classification_model_2_outputs.h5')
+siamese_cnn=load_model('siamese_cnn_model.h5')
 siamese_cnn._name="siamese_cnn"
 # predd=siamese_cnn.predict([x_train_pairs[:,0],x_train_pairs[:,1]])
 siamese_cnn.trainable=False
-classificator_for_office=load_model('D:/tmp_classificator_embed_for_siamese_cnn/model_55/classificator_12_embed_for_siamese_cnn.h5')
+classificator_for_office=load_model('classificator_12_embed_for_siamese_cnn.h5')
 classificator_for_office._name ="classificator_for_scnn"
 classificator_for_office.trainable=False
 
@@ -330,7 +329,7 @@ history = modified_siamese_cnn.fit(x=[x_train_pairs[:,0],x_train_pairs[:,1]], y=
                                                     epochs=30, batch_size=10,callbacks=[mc])
 ###############################
 
-
+modified_siamese_cnn.save('modified_siamese_cnn_name.h5')
 ##### TEST MODULE
 pred_test=modified_siamese_cnn.predict([x_test_pairs[:,0],x_test_pairs[:,1]])
 pred_train=modified_siamese_cnn.predict([x_train_pairs[:,0],x_train_pairs[:,1]])

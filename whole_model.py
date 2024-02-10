@@ -19,7 +19,7 @@ gpus = tf.config.list_logical_devices('GPU')
 
 tf.config.run_functions_eagerly(True)
 
-dataset = tf.data.TFRecordDataset('classification_dataset_v1_inside_modified_siamese_cnn.tfrecord')
+dataset = tf.data.TFRecordDataset('classification_dataset_modified_siamese_cnn_256pix.tfrecord')
 #REading images and labels from tfrecord files
 def parse_record(record):
     images = []
@@ -48,8 +48,8 @@ images, labels = parse_record(dataset)
 
 
 #Loading pretrained models
-localizator=load_model('D:/tmp_modified_classificatior/localizator_weights_25_01/1/222/22/223/test111_bounding_box_for_many_objects.h5')
-classificator=load_model("modified_siamese_cnn_testttt.h5")
+localizator=load_model('localizator_model.h5')
+classificator=load_model("modified_siamese_cnn.h5")
 
 # image_for_test= cv2.imread('input_image.jpg')
 

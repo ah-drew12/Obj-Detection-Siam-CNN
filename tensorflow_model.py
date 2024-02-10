@@ -12,7 +12,9 @@ import itertools
 import  random
 tf.config.run_functions_eagerly(True)
 #
-dataset = tf.data.TFRecordDataset('classification_dataset_v1_inside_modified_siamese_cnn.tfrecord')
+# dataset = tf.data.TFRecordDataset('classification_the_office_dataset.tfrecord')
+dataset = tf.data.TFRecordDataset('classification_dataset_modified_siamese_cnn_256pix.tfrecord')
+
 
 def parse_record(record):
     images = []
@@ -351,6 +353,7 @@ history = siamese_cnn.fit(x=[x_train_pairs[:,0],x_train_pairs[:,1]], y=y_train_p
                                                     epochs=30, batch_size=5,callbacks=[mc])
 
 
+siamese_cnn.save('model_siamese_cnn_name.h5')
 plt.figure()
 plt.title('loss graph')
 plt.plot(history.history['loss'])

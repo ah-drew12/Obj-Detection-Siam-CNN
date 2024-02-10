@@ -343,6 +343,6 @@ print(end_time)
 (pd.DataFrame(train_hist)).to_csv('D:/tmp_modified_classificatior/localizator_weights_25_01/1/222/22/223/train_hist.csv')
 (pd.DataFrame(val_hist)).to_csv('D:/tmp_modified_classificatior/localizator_weights_25_01/1/222/22/223/val_hist.csv')
 
-localizator.nn_box.save('D:/tmp_modified_classificatior/localizator_weights_25_01/1/222/22/223/test111_bounding_box_for_many_objects.h5')
+localizator.nn_box.save('localizator_model_name.h5')
 
 print('d')

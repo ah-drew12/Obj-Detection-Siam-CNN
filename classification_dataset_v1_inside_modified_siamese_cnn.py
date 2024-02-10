@@ -7,7 +7,7 @@ from os import path as osp
 import xml.etree.ElementTree as ET
 import cv2
 
-writer = tf.io.TFRecordWriter('classification_dataset_v1_inside_modified_siamese_cnn.tfrecord')
+writer = tf.io.TFRecordWriter('classification_dataset_modified_siamese_cnn_256pix.tfrecord')
 # 
 def load_img(img):
     img=tf.io.read_file(img)
@@ -49,5 +49,5 @@ for folder in folders:
 writer.close()
 
 
-dataset=tf.data.TFRecordDataset('classification_dataset_v1_inside_modified_siamese_cnn.tfrecord')
+dataset=tf.data.TFRecordDataset('classification_dataset_modified_siamese_cnn_256pix.tfrecord')
 print(dataset)

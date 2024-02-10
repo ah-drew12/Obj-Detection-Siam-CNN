@@ -18,7 +18,8 @@ from keras import initializers
 
 tf.config.run_functions_eagerly(True)
 # classification_dataset_v1_inside_modified_siamese_cnn
-dataset = tf.data.TFRecordDataset('classification_dataset_v1_inside_modified_siamese_cnn.tfrecord')
+dataset = tf.data.TFRecordDataset('classification_dataset_modified_siamese_cnn_256pix.tfrecord')
+# dataset = tf.data.TFRecordDataset('classification_the_office_dataset.tfrecord')
 #
 def parse_record(record):
     images = []#
@@ -177,9 +178,7 @@ for model_ver in dir_list:
 
 
 #Model saving in format .h5
-classification_for_office.save('D:/tmp_classificator_embed_for_siamese_cnn/model_55/classificator_12_embed_for_siamese_cnn.h5')
-
-classification_for_office.save_weights('D:/tmp_classificator_embed_for_siamese_cnn/model_55/weights_Forooor_classificator_12_embed_for_siamese_cnn.h5')
+classification_for_office.save('classificator_12_embed_for_siamese_cnn.h5')
 
 #Prediction on test dataset with output on plot
 for image in x_test:
