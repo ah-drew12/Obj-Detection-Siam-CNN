@@ -1,0 +1,59 @@
+вариант при котором начинается улучшаться классификация
+
+
+
+cnn=Sequential([
+
+                # Reshape(
+                #     # batch_input_shape=(1,1,32),
+                #     target_shape=(128,128,3)),
+                # get_cnn_block(DEPTH),
+                # get_cnn_block(DEPTH*2),
+                # get_cnn_block(DEPTH*4),
+                # GlobalAveragePooling2D(),
+                # Dense(32,activation='relu')
+
+        Reshape(
+                        # batch_input_shape=(1,1,32),
+        target_shape=(128,128,3)),
+        Conv2D(64,10,activation='relu'),
+        BatchNormalization(),
+        MaxPooling2D(),
+
+        # Dropout(0.25),
+        Conv2D(128,10,activation='relu'),
+        # Conv2D(128, (7, 7), activation='relu'),
+        BatchNormalization(),
+        MaxPooling2D(),
+
+        Dropout(0.25),
+        Conv2D(256,10,activation='relu'),
+        Conv2D(256, 4, activation='relu'),
+        BatchNormalization(),
+        MaxPooling2D(),
+
+        # Dropout(0.25),
+        # Conv2D(512, (7, 7),activation='relu'),
+        # MaxPooling2D(),
+
+
+        Flatten(),
+        Dense(4096,activation='relu'),
+        Dropout(0.3)
+
+])
+
+feature_vector_A=cnn(img_A_inp)
+feature_vector_B=cnn(img_B_inp)
+
+
+concat= Concatenate()([feature_vector_A,feature_vector_B])
+# dense=Dense(1024, activation='relu',name='siamese_dense_pre_output_layer1',kernel_initializer=initializers.RandomNormal(stddev=0.01))(concat)
+# dense=Dropout(0.2)(dense)
+# dense=Dense(512, activation='relu',name='siamese_dense_pre_output_layer2',kernel_initializer=initializers.RandomNormal(stddev=0.2))(dense)
+# dense=Dropout(0.2)(dense)
+dense=Dense(64, activation='relu',name='siamese_dense_pre_output_layer3')(concat)
+
+output=Dense(2,activation='softmax',name='siamese_output_layer')(dense)
+
+siamese_cnn=Model(inputs=[img_A_inp,img_B_inp], outputs=output)
